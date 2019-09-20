@@ -25,6 +25,16 @@ for side in range(4):
     border_pen.lt(90)
 border_pen.hideturtle()
 
+# create score display
+score = 0
+score_pen = turtle.Turtle()
+score_pen.speed(0)
+score_pen.color("white")
+score_pen.penup()
+score_pen.setposition(-290,280) #top left place to display
+scorestring = "Score = %s" %score
+score_pen.write(scorestring,False,align="left", font = ("Arial",8,"normal") )
+score_pen.hideturtle()
 
 #create player turtle
 player = turtle.Turtle()
@@ -125,17 +135,20 @@ while(True):
         enemy.setx(x)
 
         if enemy.xcor() > 280:
-            enemyspeed  = enemyspeed * (-1) # change speed direction to left when at right boundary
-            y = enemy.ycor() # drop down 40 pixels everytime it hits border
-            y = y - 40
-            enemy.sety(y)
+            for e in enemies:
+                enemyspeed  = enemyspeed * (-1) # change speed direction to left when at right boundary
+                y = e.ycor() # drop down 40 pixels everytime it hits border
+                y = y - 40
+                e.sety(y)
 
 
         if enemy.xcor() < -280:
-            enemyspeed  = enemyspeed * (-1) # change speed direction to right when at left boundary
-            y = enemy.ycor() # drop down 40 pixels everytime it hits border
-            y = y - 40
-            enemy.sety(y)
+            for e in enemies:
+                enemyspeed  = enemyspeed * (-1) # change speed direction to left when at right boundary
+                y = e.ycor() # drop down 40 pixels everytime it hits border
+                y = y - 40
+                e.sety(y)
+
 
         # move bullet
         if bulletstate=="fire":
@@ -151,6 +164,10 @@ while(True):
         
         #check collision between bullet and enemy
         if (isCollision(bullet,enemy)):
+            score = score+10
+            scorestring = "Score = %s" %score
+            score_pen.clear()
+            score_pen.write(scorestring,False,align="left", font = ("Arial",8,"normal") )
             bullet.hideturtle()
             bulletstate = "ready"
             bullet.setposition(0,-400) #avoid future collision with the same bullet
@@ -165,7 +182,5 @@ while(True):
             enemy.hideturtle()
             print("Game Over")
             break
-
-
 
 delay = raw_input("Press enter to finish")
