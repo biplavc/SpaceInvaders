@@ -2,6 +2,7 @@
 import turtle
 import os
 import math
+import random
 
 #set up screen
 wn = turtle.Screen()
@@ -82,13 +83,24 @@ turtle.onkey(move_left,"Left")
 turtle.onkey(move_right,"Right")
 turtle.onkey(fire_bullet,"space")
 
-# create 1 invader
-enemy = turtle.Turtle()
-enemy.color("red")
-enemy.penup()
-enemy.speed(0)
-enemy.setposition(-200,250)
-enemyspeed = 2
+#create multiple enemies using list
+number_of_enemies = 5
+enemies = []
+
+for i in range(number_of_enemies):
+    enemies.append(turtle.Turtle())
+
+for enemy in enemies:
+    enemy.color("red")
+    enemy.penup()
+    enemy.speed(0)
+    x = random.randint(-200,200)
+    y = random.randint(100,250)
+    enemy.setposition(x,y)
+    enemyspeed = 2
+
+
+
 
 # create a bullet for the player
 bullet  = turtle.Turtle()
@@ -107,41 +119,53 @@ bulletstate = "ready"
 
 # main game loop
 while(True):
-    x = enemy.xcor()
-    x = x + enemyspeed
-    enemy.setx(x)
+    for enemy in enemies:
+        x = enemy.xcor()
+        x = x + enemyspeed
+        enemy.setx(x)
 
-    if enemy.xcor() > 280:
-        enemyspeed  = enemyspeed * (-1) # change speed direction to left when at right boundary
-        y = enemy.ycor() # drop down 40 pixels everytime it hits border
-        y = y - 40
-        enemy.sety(y)
+        if enemy.xcor() > 280:
+            enemyspeed  = enemyspeed * (-1) # change speed direction to left when at right boundary
+            y = enemy.ycor() # drop down 40 pixels everytime it hits border
+            y = y - 40
+            enemy.sety(y)
 
 
-    if enemy.xcor() < -280:
-        enemyspeed  = enemyspeed * (-1) # change speed direction to right when at left boundary
-        y = enemy.ycor() # drop down 40 pixels everytime it hits border
-        y = y - 40
-        enemy.sety(y)
+        if enemy.xcor() < -280:
+            enemyspeed  = enemyspeed * (-1) # change speed direction to right when at left boundary
+            y = enemy.ycor() # drop down 40 pixels everytime it hits border
+            y = y - 40
+            enemy.sety(y)
 
-    # move bullet
-    if bulletstate=="fire":
-        y = bullet.ycor()
-        y = y + bulletspeed
-        bullet.sety(y)
+        # move bullet
+        if bulletstate=="fire":
+            y = bullet.ycor()
+            y = y + bulletspeed
+            bullet.sety(y)
 
-    #bullet border check
-    if bullet.ycor()>275:
-        bullet.hideturtle()
-        bullet.sety(-240)
-        bulletstate="ready"
-    
-    #check collision between bullet and enemy
-    if (isCollision(bullet,enemy)):
-        bullet.hideturtle()
-        bulletstate = "ready"
-        bullet.setposition(0,-400) #avoid future collision with the same bullet
-        enemy.setposition(-200,250) # enemy got hit so moved to initial place
+        #bullet border check
+        if bullet.ycor()>275:
+            bullet.hideturtle()
+            bullet.sety(-240)
+            bulletstate="ready"
+        
+        #check collision between bullet and enemy
+        if (isCollision(bullet,enemy)):
+            bullet.hideturtle()
+            bulletstate = "ready"
+            bullet.setposition(0,-400) #avoid future collision with the same bullet
+            enemy.setposition(-200,250) # enemy got hit so moved to initial place
+            # unindent the next 3 lines for random positioning of the enemy after being shot
+            x_pos = random.randint(-200,200)
+            y_pos = random.randint(100,250)
+            enemy.setposition(x_pos,y_pos)
+
+        if (isCollision(player,enemy)): #collision between player and enemy will finish the game
+            player.hideturtle()
+            enemy.hideturtle()
+            print("Game Over")
+            break
+
 
 
 delay = raw_input("Press enter to finish")
