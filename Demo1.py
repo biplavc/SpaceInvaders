@@ -68,7 +68,7 @@ def isCollision(t1,t2): #calculate distance between bullet and enemy and if
     # less than a threshold, a collision happens
     x_dist = t1.xcor()-t2.xcor()
     y_dist = t1.ycor()-t2.ycor()
-    distance = sqrt(power(x_dist,2)+power(y_dist,2))
+    distance = math.sqrt(x_dist**2 + y_dist**2)
     if distance<15:
         return True
     else:
@@ -135,6 +135,13 @@ while(True):
         bullet.hideturtle()
         bullet.sety(-240)
         bulletstate="ready"
+    
+    #check collision between bullet and enemy
+    if (isCollision(bullet,enemy)):
+        bullet.hideturtle()
+        bulletstate = "ready"
+        bullet.setposition(0,-400) #avoid future collision with the same bullet
+        enemy.setposition(-200,250) # enemy got hit so moved to initial place
 
 
 delay = raw_input("Press enter to finish")
