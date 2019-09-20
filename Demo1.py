@@ -63,6 +63,8 @@ def fire_bullet():
         print(bulletspeed,bullet.xcor(),bullet.ycor(),bulletstate)
     # the movement of the bullet will be defined in the game loop
 
+def isCollision(t1,t2): #calculate distance between bullet and enemy and if
+    # less than a threshold, a collision happens
 
 
 #create key bindings
