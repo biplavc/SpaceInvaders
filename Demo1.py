@@ -9,6 +9,8 @@ wn = turtle.Screen()
 wn.bgcolor("black")
 wn.bgpic("space_invaders_background.gif") #edited to be 600*600
 wn.title("Space Invaders")
+turtle.setundobuffer(1)
+turtle.tracer(1)
 
 turtle.register_shape("invader1.gif")
 turtle.register_shape("invader2.gif")
@@ -38,7 +40,7 @@ border_pen.hideturtle()
 # create score display
 score = 0
 score_pen = turtle.Turtle()
-score_pen.speed(0)
+score_pen.speed(0) #animation speed
 score_pen.color("white")
 score_pen.penup()
 score_pen.setposition(-290,280) #top left place to display
