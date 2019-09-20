@@ -7,7 +7,11 @@ import random
 #set up screen
 wn = turtle.Screen()
 wn.bgcolor("black")
+wn.bgpic("space_invaders_background.gif") #edited to be 600*600
 wn.title("Space Invaders")
+
+turtle.register_shape("invader.gif")
+turtle.register_shape("player.gif")
 
 #set borders for the game 
 border_pen = turtle.Turtle() # turtle for creating the boundary will now be called border_pen
@@ -38,7 +42,7 @@ score_pen.hideturtle()
 
 #create player turtle
 player = turtle.Turtle()
-player.shape("triangle")
+player.shape("player.gif")
 player.color("blue")
 player.penup() # no drawing when the turtle moves
 player.speed(0)
@@ -104,6 +108,7 @@ for enemy in enemies:
     enemy.color("red")
     enemy.penup()
     enemy.speed(0)
+    enemy.shape("invader.gif")
     x = random.randint(-200,200)
     y = random.randint(100,250)
     enemy.setposition(x,y)
