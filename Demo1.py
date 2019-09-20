@@ -10,7 +10,13 @@ wn.bgcolor("black")
 wn.bgpic("space_invaders_background.gif") #edited to be 600*600
 wn.title("Space Invaders")
 
-turtle.register_shape("invader.gif")
+turtle.register_shape("invader1.gif")
+turtle.register_shape("invader2.gif")
+turtle.register_shape("invader3.gif")
+turtle.register_shape("invader4.gif")
+turtle.register_shape("invader5.gif")
+turtle.register_shape("invader6.gif")
+
 turtle.register_shape("player.gif")
 
 #set borders for the game 
@@ -104,14 +110,17 @@ enemies = []
 for i in range(number_of_enemies):
     enemies.append(turtle.Turtle())
 
+i = 1
+
 for enemy in enemies:
     enemy.color("red")
     enemy.penup()
     enemy.speed(0)
-    enemy.shape("invader.gif")
+    enemy.shape("invader" + str(i) + ".gif")
     x = random.randint(-200,200)
     y = random.randint(100,250)
     enemy.setposition(x,y)
+    i= i+1
     enemyspeed = 2
 
 
