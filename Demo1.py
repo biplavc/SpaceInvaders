@@ -1,6 +1,7 @@
 # python 2.7
 import turtle
 import os
+import math
 
 #set up screen
 wn = turtle.Screen()
@@ -65,6 +66,14 @@ def fire_bullet():
 
 def isCollision(t1,t2): #calculate distance between bullet and enemy and if
     # less than a threshold, a collision happens
+    x_dist = t1.xcor()-t2.xcor()
+    y_dist = t1.ycor()-t2.ycor()
+    distance = sqrt(power(x_dist,2)+power(y_dist,2))
+    if distance<15:
+        return True
+    else:
+        return False
+
 
 
 #create key bindings
