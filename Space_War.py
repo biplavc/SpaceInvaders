@@ -47,36 +47,35 @@ class Game():
 game = Game()
 game.draw_border()
 
-bulletstate1 = "ready"
-bulletstate2 = "ready"
+# bulletstate1 = "ready"
+# bulletstate2 = "ready"
 
 def enemy1_fire():
 	#the bullet will travel up from the player's position
-	global bulletstate1 # enable modifying global var from inside of function
-	if bulletstate1 == "ready":
-		bulletstate1 = "fired"
-		bullet1.showturtle()
-		x = enemy1.xcor() # get the coordinates at the time of firing
-		y = enemy1.ycor()
-		bullet1.speed = 6 # slowest speed 
-		bullet1.setposition(x,y) # bullet will appear just above the player
-		# bullet1.goto(player.xcor,player.ycor) STATEMENT NOT WORKING
+	#global bulletstate1 # enable modifying global var from inside of function
+	#if bulletstate1 == "ready":
+		#bulletstate1 = "fired"
+	x = enemy1.xcor() # get the coordinates at the time of firing
+	y = enemy1.ycor()
+	bullet1.showturtle()
+	bullet1.speed = 6
+	bullet1.setposition(x,y) # bullet will appear just above the player
+		#bullet1.goto(player.xcor(),player.ycor())
 		#print(bulletspeed,bullet.xcor(),bullet.ycor(),bulletstate1)
 
 def enemy2_fire():
 	#the bullet will travel up from the player's position
-	global bulletstate2 # enable modifying global var from inside of function
-	if bulletstate2 == "ready":
-		bulletstate2 = "fired"
-		bullet2.showturtle()
-		x = enemy2.xcor()
-		y = enemy2.ycor()
-		bullet2.speed = 6
-		bullet2.setposition(x,y) # bullet will appear just above the player
-		# bullet2.goto(player.xcor,player.ycor) STATEMENT NOT WORKING
+	#global bulletstate2 # enable modifying global var from inside of function
+	#if bulletstate2 == "ready":
+		#bulletstate2 = "fired"
+	x = enemy2.xcor()
+	y = enemy2.ycor()
+	bullet2.showturtle()
+	bullet2.speed = 6
+	bullet2.setposition(x,y) # bullet will appear just above the player
+		#bullet2.goto(player.xcor(),player.ycor())
 		#print(bulletspeed,bullet.xcor(),bullet.ycor(),bulletstate2)
 		
-
 class Player(turtle.Turtle):
 	def __init__(self, spriteshape, color, startx, starty):
 		turtle.Turtle.__init__(self, shape = spriteshape)
@@ -191,7 +190,7 @@ class Enemy2(turtle.Turtle):
 
 enemy1 = Enemy1("circle", "red", 50, -50)
 enemy2 = Enemy2("square", "blue", -10, 200)
-player = Player("triangle", "white", 0, 0)
+player = Player("triangle", "white", 0, -260)
 
 
 #key bindings
@@ -209,7 +208,7 @@ bullet1.penup()
 bullet1.shapesize(0.3,0.3) # length and breadth of bullet
 bullet1.hideturtle()
 bullet1.speed(3)
-bullet1.speed = 2
+bullet1.speed = 1
 
 # create a bullet for the enemy2
 bullet2  = turtle.Turtle()
@@ -219,53 +218,43 @@ bullet2.penup()
 bullet2.shapesize(0.4,0.4) # length and breadth of bullet
 bullet2.hideturtle()
 bullet2.speed(3)
-bullet2.speed = 2
+bullet2.speed = 1
 
 
 
 while True:
-	print("bulletstate1 = " + str(bulletstate1) + ";" "bulletstate2 =" + str(bulletstate2))
-	print ("bullet1's positions are (" + str(bullet1.xcor()) + ";" + str(bullet1.ycor())+ ")")
-	print ("bullet2's positions are (" + str(bullet2.xcor()) + ";" + str(bullet2.ycor())+ ")"+ "\n")
+	# print("bulletstate1 = " + str(bulletstate1) + ";" "bulletstate2 =" + str(bulletstate2))
+	# print ("bullet1's positions are (" + str(bullet1.xcor()) + ";" + str(bullet1.ycor())+ ")")
+	# print ("bullet2's positions are (" + str(bullet2.xcor()) + ";" + str(bullet2.ycor())+ ")"+ "\n")
 
 	enemy1.move()
 	enemy2.move()
 
-	# if player.xcor>290:
-	# 	player.setx(290)
-	# if player.xcor<-290:
-	# 	player.setx(-290)
-	# if player.ycor>290:
-	# 	player.sety(290)
-	# if player.ycor<-290:
-	# 	player.sety(-290)
 
+	#if bulletstate1=="fired":
+	y = bullet1.ycor()
+	y = y - bullet1.speed
+	bullet1.sety(y)
+		#bullet1.goto(player.xcor(),player.ycor())
 
-
-	if bulletstate1=="fired":
-		# y = bullet1.ycor()
-		# y = y - bullet1.speed
-		# bullet1.sety(y)
-		bullet1.goto(player.xcor(),player.ycor())
-
-	if bulletstate2=="fired":
-		# y = bullet2.ycor()
-		# y = y - bullet2.speed
-		# bullet2.sety(y)
-		bullet2.goto(player.xcor(),player.ycor())
+	#if bulletstate2=="fired":
+	y = bullet2.ycor()
+	y = y - bullet2.speed
+	bullet2.sety(y)
+		#bullet2.goto(player.xcor(),player.ycor())
 
 	if (bullet1.ycor()>275 or bullet1.xcor()>275 or bullet1.ycor()<-275 or bullet1.xcor()<-275):
 		bullet1.hideturtle()
 		# bullet1.sety(enemy1.ycor)
 		# bullet1.setx(enemy1.xcor)
-		bulletstate1="ready"
+		# bulletstate1="ready"
 
 	
 	if (bullet2.ycor()>275 or bullet2.xcor()>275 or bullet2.ycor()<-275 or bullet2.xcor()<-275):
 		bullet2.hideturtle()
 		# bullet2.sety(enemy2.ycor)
 		# bullet2.setx(enemy2.xcor)
-		bulletstate2="ready"
+		# bulletstate2="ready"
 
 sys.stdout.close()
 delay = raw_input("Press enter to finish. > ")
