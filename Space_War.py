@@ -85,24 +85,67 @@ class Player(turtle.Turtle):
 		self.color(color)
 		self.fd(0)
 		self.goto(startx, starty)
-		self.speed = 6
+		self.speed = 1
 		self.left(90)
 		#self.mode("logo")  
 	
 	def move(self):
 		self.fd(self.speed)
+		if (player.xcor()<-280): # boundary checking
+			player.setx(-280)
+		if (player.xcor()> 280): # boundary checking
+			player.setx(280)
+		if (player.ycor()<-280): # boundary checking
+			player.sety(-280)
+		if (player.ycor()> 280): # boundary checking
+			player.sety(280)
 	
 	def turn_left(self):
 		self.move()
 		self.lt(30)
+		if (player.xcor()<-280): # boundary checking
+			player.setx(-280)
+		if (player.xcor()> 280): # boundary checking
+			player.setx(280)
+		if (player.ycor()<-280): # boundary checking
+			player.sety(-280)
+		if (player.ycor()> 280): # boundary checking
+			player.sety(280)
+
 	def turn_right(self):
 		self.move()
 		self.rt(30)
+		if (player.xcor()<-280): # boundary checking
+			player.setx(-280)
+		if (player.xcor()> 280): # boundary checking
+			player.setx(280)
+		if (player.ycor()<-280): # boundary checking
+			player.sety(-280)
+		if (player.ycor()> 280): # boundary checking
+			player.sety(280)
+
 	def accelerate(self):
 		self.move()
 		self.speed = self.speed + 1
+		if (player.xcor()<-280): # boundary checking
+			player.setx(-280)
+		if (player.xcor()> 280): # boundary checking
+			player.setx(280)
+		if (player.ycor()<-280): # boundary checking
+			player.sety(-280)
+		if (player.ycor()> 280): # boundary checking
+			player.sety(280)
+
 	def brake(self):
 		self.speed = self.speed - 1
+		if (player.xcor()<-280): # boundary checking
+			player.setx(-280)
+		if (player.xcor()> 280): # boundary checking
+			player.setx(280)
+		if (player.ycor()<-280): # boundary checking
+			player.sety(-280)
+		if (player.ycor()> 280): # boundary checking
+			player.sety(280)
 
 class Enemy1(turtle.Turtle):
 	def __init__(self, spriteshape, color, startx, starty):
@@ -166,7 +209,7 @@ bullet1.penup()
 bullet1.shapesize(0.3,0.3) # length and breadth of bullet
 bullet1.hideturtle()
 bullet1.speed(3)
-bullet1.speed = 6
+bullet1.speed = 2
 
 # create a bullet for the enemy2
 bullet2  = turtle.Turtle()
@@ -176,7 +219,7 @@ bullet2.penup()
 bullet2.shapesize(0.4,0.4) # length and breadth of bullet
 bullet2.hideturtle()
 bullet2.speed(3)
-bullet2.speed = 6
+bullet2.speed = 2
 
 
 
@@ -200,14 +243,16 @@ while True:
 
 
 	if bulletstate1=="fired":
-		y = bullet1.ycor()
-		y = y - bullet1.speed
-		bullet1.sety(y)
+		# y = bullet1.ycor()
+		# y = y - bullet1.speed
+		# bullet1.sety(y)
+		bullet1.goto(player.xcor(),player.ycor())
 
 	if bulletstate2=="fired":
-		y = bullet2.ycor()
-		y = y - bullet2.speed
-		bullet2.sety(y)
+		# y = bullet2.ycor()
+		# y = y - bullet2.speed
+		# bullet2.sety(y)
+		bullet2.goto(player.xcor(),player.ycor())
 
 	if (bullet1.ycor()>275 or bullet1.xcor()>275 or bullet1.ycor()<-275 or bullet1.xcor()<-275):
 		bullet1.hideturtle()
