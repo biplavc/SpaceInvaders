@@ -52,6 +52,7 @@ game.draw_border()
 
 def enemy1_fire():
 	#the bullet will travel up from the player's position
+<<<<<<< HEAD
 	#global bulletstate1 # enable modifying global var from inside of function
 	#if bulletstate1 == "ready":
 		#bulletstate1 = "fired"
@@ -61,10 +62,22 @@ def enemy1_fire():
 	bullet1.speed = 6
 	bullet1.setposition(x,y) # bullet will appear just above the player
 		#bullet1.goto(player.xcor(),player.ycor())
+=======
+	global bulletstate1 # enable modifying global var from inside of function
+	if bulletstate1 == "ready":
+		bulletstate1 = "fired"
+		bullet1.showturtle()
+		x = enemy1.xcor() # get the coordinates at the time of firing
+		y = enemy1.ycor()
+		bullet1.speed = 6 # slowest speed 
+		bullet1.setposition(x,y) # bullet will appear just above the player
+		# bullet1.goto(player.xcor,player.ycor) STATEMENT NOT WORKING
+>>>>>>> 329b660971aa46a29b53ec25bd45c6614466a349
 		#print(bulletspeed,bullet.xcor(),bullet.ycor(),bulletstate1)
 
 def enemy2_fire():
 	#the bullet will travel up from the player's position
+<<<<<<< HEAD
 	#global bulletstate2 # enable modifying global var from inside of function
 	#if bulletstate2 == "ready":
 		#bulletstate2 = "fired"
@@ -76,6 +89,20 @@ def enemy2_fire():
 		#bullet2.goto(player.xcor(),player.ycor())
 		#print(bulletspeed,bullet.xcor(),bullet.ycor(),bulletstate2)
 		
+=======
+	global bulletstate2 # enable modifying global var from inside of function
+	if bulletstate2 == "ready":
+		bulletstate2 = "fired"
+		bullet2.showturtle()
+		x = enemy2.xcor()
+		y = enemy2.ycor()
+		bullet2.speed = 6
+		bullet2.setposition(x,y) # bullet will appear just above the player
+		# bullet2.goto(player.xcor,player.ycor) STATEMENT NOT WORKING
+		#print(bulletspeed,bullet.xcor(),bullet.ycor(),bulletstate2)
+		
+
+>>>>>>> 329b660971aa46a29b53ec25bd45c6614466a349
 class Player(turtle.Turtle):
 	def __init__(self, spriteshape, color, startx, starty):
 		turtle.Turtle.__init__(self, shape = spriteshape)
@@ -84,12 +111,13 @@ class Player(turtle.Turtle):
 		self.color(color)
 		self.fd(0)
 		self.goto(startx, starty)
-		self.speed = 1
+		self.speed = 6
 		self.left(90)
 		#self.mode("logo")  
 	
 	def move(self):
 		self.fd(self.speed)
+<<<<<<< HEAD
 		if (player.xcor()<-280): # boundary checking
 			player.setx(-280)
 		if (player.xcor()> 280): # boundary checking
@@ -98,6 +126,8 @@ class Player(turtle.Turtle):
 			player.sety(-280)
 		if (player.ycor()> 280): # boundary checking
 			player.sety(280)
+=======
+>>>>>>> 329b660971aa46a29b53ec25bd45c6614466a349
 	
 	def turn_left(self):
 		self.move()
@@ -208,7 +238,11 @@ bullet1.penup()
 bullet1.shapesize(0.3,0.3) # length and breadth of bullet
 bullet1.hideturtle()
 bullet1.speed(3)
+<<<<<<< HEAD
 bullet1.speed = 1
+=======
+bullet1.speed = 6
+>>>>>>> 329b660971aa46a29b53ec25bd45c6614466a349
 
 # create a bullet for the enemy2
 bullet2  = turtle.Turtle()
@@ -218,14 +252,24 @@ bullet2.penup()
 bullet2.shapesize(0.4,0.4) # length and breadth of bullet
 bullet2.hideturtle()
 bullet2.speed(3)
+<<<<<<< HEAD
 bullet2.speed = 1
+=======
+bullet2.speed = 6
+>>>>>>> 329b660971aa46a29b53ec25bd45c6614466a349
 
 
 
 while True:
+<<<<<<< HEAD
 	# print("bulletstate1 = " + str(bulletstate1) + ";" "bulletstate2 =" + str(bulletstate2))
 	# print ("bullet1's positions are (" + str(bullet1.xcor()) + ";" + str(bullet1.ycor())+ ")")
 	# print ("bullet2's positions are (" + str(bullet2.xcor()) + ";" + str(bullet2.ycor())+ ")"+ "\n")
+=======
+	print("bulletstate1 = " + str(bulletstate1) + ";" "bulletstate2 =" + str(bulletstate2))
+	print ("bullet1's positions are (" + str(bullet1.xcor()) + ";" + str(bullet1.ycor())+ ")")
+	print ("bullet2's positions are (" + str(bullet2.xcor()) + ";" + str(bullet2.ycor())+ ")"+ "\n")
+>>>>>>> 329b660971aa46a29b53ec25bd45c6614466a349
 
 	enemy1.move()
 	enemy2.move()
@@ -237,24 +281,44 @@ while True:
 	bullet1.sety(y)
 		#bullet1.goto(player.xcor(),player.ycor())
 
+<<<<<<< HEAD
 	#if bulletstate2=="fired":
 	y = bullet2.ycor()
 	y = y - bullet2.speed
 	bullet2.sety(y)
 		#bullet2.goto(player.xcor(),player.ycor())
+=======
+	if bulletstate1=="fired":
+		y = bullet1.ycor()
+		y = y - bullet1.speed
+		bullet1.sety(y)
+
+	if bulletstate2=="fired":
+		y = bullet2.ycor()
+		y = y - bullet2.speed
+		bullet2.sety(y)
+>>>>>>> 329b660971aa46a29b53ec25bd45c6614466a349
 
 	if (bullet1.ycor()>275 or bullet1.xcor()>275 or bullet1.ycor()<-275 or bullet1.xcor()<-275):
 		bullet1.hideturtle()
 		# bullet1.sety(enemy1.ycor)
 		# bullet1.setx(enemy1.xcor)
+<<<<<<< HEAD
 		# bulletstate1="ready"
+=======
+		bulletstate1="ready"
+>>>>>>> 329b660971aa46a29b53ec25bd45c6614466a349
 
 	
 	if (bullet2.ycor()>275 or bullet2.xcor()>275 or bullet2.ycor()<-275 or bullet2.xcor()<-275):
 		bullet2.hideturtle()
 		# bullet2.sety(enemy2.ycor)
 		# bullet2.setx(enemy2.xcor)
+<<<<<<< HEAD
 		# bulletstate2="ready"
+=======
+		bulletstate2="ready"
+>>>>>>> 329b660971aa46a29b53ec25bd45c6614466a349
 
 sys.stdout.close()
 delay = raw_input("Press enter to finish. > ")
