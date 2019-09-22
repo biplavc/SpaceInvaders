@@ -75,7 +75,7 @@ class Enemy1(turtle.Turtle):
 
   	def move(self):
 		self.lt(90)
-		self.fd(150)
+		self.fd(100)
 		self.shoot = self.shoot - 1
 		if self.shoot==0:
 			self.enemy1_fire() #shoot towards player
@@ -92,10 +92,16 @@ class Enemy1(turtle.Turtle):
 		y1 = y - 900
 		self.bullet1.sety(y1)
 
-enemy1 = Enemy1("circle", "red", 50, -50)
-# enemy2 = Enemy2("square", "blue", -10, 200)
-player = Player("triangle", "white", 0, -290)
+# enemy1 = Enemy1("circle", "red", 50, -50)
 
+num_Enemy1 = 5
+enemies1 = []
+for i in range(num_Enemy1):
+	b = Enemy1("circle", "red", random.randint(-180,180), random.randint(-180,180))
+	enemies1.append(b)
+
+
+player = Player("triangle", "white", 0, -290)
 
 #key bindings
 turtle.listen()
@@ -105,8 +111,13 @@ turtle.onkey(player.accelerate,"Up")
 #turtle.onkey(player.brake,"Down")
 
 while True:
-	# print (enemy1.shoot, enemy2.shoot)
-	enemy1.move()
+	for enemy1 in enemies1:
+		enemy1.move()
+
+		if (enemy1.bullet1.ycor()>275 or enemy1.bullet1.xcor()>275 or enemy1.bullet1.ycor()<-275 or enemy1.bullet1.xcor()<-275):
+			enemy1.bullet1.hideturtle()
+			enemy1.bullet1.clear()
+
 	# enemy2.move()
 
 
@@ -121,9 +132,7 @@ while True:
 	# 	bullet2.sety(y)
 
 
-	if (enemy1.bullet1.ycor()>275 or enemy1.bullet1.xcor()>275 or enemy1.bullet1.ycor()<-275 or enemy1.bullet1.xcor()<-275):
-		enemy1.bullet1.hideturtle()
-		enemy1.bullet1.clear()
+	
 
 	
 	# if (bullet2.ycor()>275 or bullet2.xcor()>275 or bullet2.ycor()<-275 or bullet2.xcor()<-275):
