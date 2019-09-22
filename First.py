@@ -2,30 +2,14 @@
 
 import os
 import random
-
-#Import the Turtle module
 import turtle
-#Required by MacOSX to show the window
 turtle.fd(0)
-#Set the animations speed to the minimum
 turtle.speed(1)
-#Change the background color
 turtle.bgcolor("black")
-#Hide the default turtle
 turtle.ht()
-#This saves memory
 turtle.setundobuffer(1)
-#This speeds up drawing
 turtle.tracer(1)
-
-class Game():
-	# def __init__(self):
-	# 	self.level = 1
-	# 	self.score = 0
-	# 	self.state = "playing"
-	# 	self.pen = turtle.Turtle()
-	# 	self.lives = 3
-		
+class Game():	
 	def draw_border(self):
 		#Draw border
 		self.pen = turtle.Turtle()
@@ -54,11 +38,10 @@ def enemy1_fire():
 		bulletstate1 = "fire"
 		x = enemy1.xcor()
 		y = enemy1.ycor()
-		bullet1.speed = 0 # need a way to access bullet1 from here to make speed 0 to reduce lag just before the enemy shoots
+		bullet1.speed = 0
 		bullet1.setposition(x,y) # bullet will appear just above the player
         bullet1.showturtle()
         bullet1.speed = 6
-		#print(bulletspeed,bullet.xcor(),bullet.ycor(),bulletstate1)
 		# the movement of the bullet will be defined in the game loop
 
 def enemy2_fire():
@@ -72,10 +55,7 @@ def enemy2_fire():
 		bullet2.setposition(x,y) # bullet will appear just above the player
         bullet2.showturtle()
         bullet2.speed = 6
-		#print(bulletspeed,bullet.xcor(),bullet.ycor(),bulletstate2)
 		# the movement of the bullet will be defined in the game loop
-
-
 class Player(turtle.Turtle):
 	def __init__(self, spriteshape, color, startx, starty):
 		turtle.Turtle.__init__(self, shape = spriteshape)
@@ -86,23 +66,17 @@ class Player(turtle.Turtle):
 		self.goto(startx, starty)
 		self.speed = 6
 		self.left(90)
-		#self.mode("logo")  
 	
 	def move(self):
 		self.fd(10)
 	
 	def turn_left(self):
-		#self.move()
 		self.lt(30)
 	def turn_right(self):
-		#self.move()
 		self.rt(30)
 	def accelerate(self):
-		#self.move()
+		self.move()
 		self.speed = self.speed + 1
-	# def brake(self):
-	# 	self.speed = self.speed - 1
-
 class Enemy1(turtle.Turtle):
 	def __init__(self, spriteshape, color, startx, starty):
 		turtle.Turtle.__init__(self, shape = spriteshape)
@@ -112,7 +86,6 @@ class Enemy1(turtle.Turtle):
 		self.fd(3)
 		self.goto(startx, starty)
 		self.speed = 6
-		#self.mode("logo")
 	
 	shoot = 8 # shoots after 4 interval
 
@@ -123,7 +96,6 @@ class Enemy1(turtle.Turtle):
 		if self.shoot==0:
 			enemy1_fire() #shoot towards player
 			self.shoot = 8
-
 class Enemy2(turtle.Turtle):
 	def __init__(self, spriteshape, color, startx, starty):
 		turtle.Turtle.__init__(self, shape = spriteshape)
@@ -133,7 +105,6 @@ class Enemy2(turtle.Turtle):
 		self.fd(0)
 		self.goto(startx, starty)
 		self.speed = 3
-		#self.mode("logo")
 
 	shoot = 4 # shoots after 2 interval
 
@@ -162,7 +133,7 @@ bullet1  = turtle.Turtle()
 bullet1.color("yellow")
 bullet1.shape("triangle")
 bullet1.penup()
-bullet1.shapesize(0.3,0.3) # length and breadth of bullet
+bullet1.shapesize(0.3,0.3)
 bullet1.hideturtle() 
 bullet1.speed = 1
 
@@ -171,7 +142,7 @@ bullet2  = turtle.Turtle()
 bullet2.color("yellow")
 bullet2.shape("square")
 bullet2.penup()
-bullet2.shapesize(0.4,0.4) # length and breadth of bullet
+bullet2.shapesize(0.4,0.4) 
 bullet2.hideturtle() 
 bullet2.speed = 1
 
@@ -181,16 +152,6 @@ while True:
 	print (enemy1.shoot, enemy2.shoot)
 	enemy1.move()
 	enemy2.move()
-
-	# if player.xcor>290:
-	# 	player.setx(290)
-	# if player.xcor<-290:
-	# 	player.setx(-290)
-	# if player.ycor>290:
-	# 	player.sety(290)
-	# if player.ycor<-290:
-	# 	player.sety(-290)
-
 
 
 	if bulletstate1=="fire":
@@ -205,17 +166,11 @@ while True:
 
 	if (bullet1.ycor()>275 or bullet1.xcor()>275 or bullet1.ycor()<-275 or bullet1.xcor()<-275):
 		bullet1.hideturtle()
-		# bullet.sety(enemy1.ycor)
-		# bullet.setx(enemy1.xcor)
 		bulletstate1="ready"
 
 	
 	if (bullet2.ycor()>275 or bullet2.xcor()>275 or bullet2.ycor()<-275 or bullet2.xcor()<-275):
 		bullet2.hideturtle()
-		# bullet2.sety(enemy2.ycor)
-		# bullet2.setx(enemy2.xcor)
 		bulletstate2="ready"
-	
-
 
 delay = raw_input("Press enter to finish. > ")
