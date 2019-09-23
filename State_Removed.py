@@ -13,6 +13,7 @@ turtle.setundobuffer(1)
 turtle.tracer(1)
 turtle.register_shape("tank1.gif")
 turtle.register_shape("tank2.gif")
+turtle.register_shape("tank3.gif")
 
 
 class Game():	
@@ -38,9 +39,7 @@ class Bullet(turtle.Turtle):
 	def __init__(self):
 		turtle.Turtle.__init__(self)
 		self.hideturtle()
-		self.speed = 0
 		self.shape("arrow")
-		#self.speed(0)
 		self.penup()
 		self.color("white")
 		self.fd(0)
@@ -55,7 +54,6 @@ class Player(turtle.Turtle):
 		self.color(color)
 		self.fd(0)
 		self.goto(startx, starty)
-		self.speed = 6
 		self.left(90)
 		self.showturtle()
 	
@@ -67,7 +65,6 @@ class Player(turtle.Turtle):
 		self.rt(30)
 	def accelerate(self):
 		self.move()
-		self.speed = self.speed + 1
 
 # Define Enemy1 class
 
@@ -80,7 +77,6 @@ class Enemy1(turtle.Turtle):
 		self.color(color)
 		self.fd(0)
 		self.setposition(startx, starty)
-		self.speed = 3
 	
 
 	bullet1 = Bullet()
@@ -88,21 +84,20 @@ class Enemy1(turtle.Turtle):
 	def enemy1_fire(self):
 		x = self.xcor()
 		y = self.ycor()
-		self.bullet1.speed = 0
+		self.bullet1.speed(3)
 		self.bullet1.setposition(x,y) # bullet will appear just above the player
 		self.bullet1.setheading(270)
 		self.bullet1.showturtle()
-		self.bullet1.speed = 6
 		y1 = y - 900
 		self.bullet1.sety(y1)
 
-# Enemy1 class defined
-
-num_Enemy1 = 5
+num_Enemy1 = 1
 enemies1 = []
 for i in range(num_Enemy1):
-	b = Enemy1("circle", "red", random.randint(-180,180), random.randint(0,200))
+	b = Enemy1("circle", "red", random.randint(-180,180), random.randint(-100,250))
 	enemies1.append(b)
+
+# Enemy1 class defined
 
 # Define Enemy2 class
 
@@ -115,27 +110,61 @@ class Enemy2(turtle.Turtle):
 		self.color(color)
 		self.fd(0)
 		self.setposition(startx, starty)
-		self.speed = 3
 
 	bullet2 = Bullet()
 
-  	def move(self):
-		self.showturtle()
-		self.fd(50)
-		self.rt(30)
-		self.shoot = self.shoot - 1
-		if self.shoot==0:
-			self.enemy2_fire()
-			self.shoot = 4
+	def enemy2_fire(self):
+		x = self.xcor()
+		y = self.ycor()
+		self.bullet2.setposition(x,y) # bullet will appear just above the player
+		self.bullet2.setheading(270)
+		self.bullet2.showturtle()
+		self.bullet2.speed(3)
+		y1 = y - 900
+		self.bullet2.sety(y1)
+
+
+num_Enemy2 = 1
+enemies2 = []
+for i in range(num_Enemy2):
+	b = Enemy2("square", "blue", random.randint(-180,180), random.randint(-100,250))
+	enemies2.append(b)
 
 # Enemy2 class defined
 
-num_Enemy2 = 5
-enemies2 = []
-for i in range(num_Enemy2):
-	b = Enemy2("square", "blue", random.randint(-180,180), random.randint(0,200))
-	enemies2.append(b)
+# Define Enemy3 class
 
+class Enemy3(turtle.Turtle):
+	def __init__(self, spriteshape, color, startx, starty):
+		turtle.Turtle.__init__(self, shape = "tank3.gif")
+		self.hideturtle
+		self.speed(3)
+		self.penup()
+		self.color(color)
+		self.fd(0)
+		self.setposition(startx, starty)
+	
+
+	bullet3 = Bullet()
+
+	def enemy3_fire(self):
+		x = self.xcor()
+		y = self.ycor()
+		self.bullet3.setposition(x,y) # bullet will appear just above the player
+		self.bullet3.setheading(270)
+		self.bullet3.showturtle()
+		self.bullet3.speed(3)
+		y1 = y - 900
+		self.bullet3.sety(y1)
+
+
+num_Enemy3 = 1
+enemies3 = []
+for i in range(num_Enemy3):
+	b = Enemy3("circle", "red", random.randint(-180,180), random.randint(-100,250))
+	enemies3.append(b)
+
+# Enemy3 class defined
 
 player = Player("triangle", "white", 0, -390)
 
@@ -152,8 +181,8 @@ freq3 = 12
 
 while True:
 	for enemy1 in enemies1:
-		enemy1.lt(90)
-		enemy1.fd(100)
+		enemy1.rt(25)
+		enemy1.fd(60)
 		freq1 = freq1 - 1
 		if (freq1==0):
 			enemy1.enemy1_fire()
@@ -165,18 +194,31 @@ while True:
 
 
 	for enemy2 in enemies2:
-		enemy2.fd(50)
-		enemy2.rt(30)
+		enemy2.lt(30)
+		enemy2.fd(60)
+		freq2 = freq2 - 1
+		if (freq2==0):
+			enemy2.enemy2_fire()
+			freq2 = 4
 
 		if (enemy2.bullet2.ycor()>390 or enemy2.bullet2.xcor()>390 or enemy2.bullet2.ycor()<-390 or enemy2.bullet2.xcor()<-390):
 			enemy2.bullet2.hideturtle()
 			enemy2.bullet2.clear()
 
-	# for enemy3 in enemies3:
-	# 	enemy3.move()
 
-	# 	if (enemy3.bullet3.ycor()>390 or enemy3.bullet3.xcor()>390 or enemy3.bullet3.ycor()<-390 or enemy3.bullet3.xcor()<-390):
-	# 		enemy3.bullet3.hideturtle()
-	# 		enemy3.bullet3.clear()
+	for enemy3 in enemies3:
+		enemy3.rt(90)
+		enemy3.fd(80)
+		freq3 = freq3 - 1
+		if (freq3==0):
+			enemy3.enemy3_fire()
+			freq3 = 12
+
+		if (enemy3.bullet3.ycor()>390 or enemy3.bullet3.xcor()>390 or enemy3.bullet3.ycor()<-390 or enemy3.bullet3.xcor()<-390):
+			enemy3.bullet3.hideturtle()
+			enemy3.bullet3.clear()
+
+	
+
 
 delay = raw_input("Press enter to finish. > ")
