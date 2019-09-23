@@ -1,6 +1,10 @@
+
 import os
 import random
 import turtle
+
+wn = turtle.Screen()
+wn.bgpic("space_invaders_background_new.gif")
 turtle.fd(0)
 turtle.speed(0)
 turtle.bgcolor("black")
@@ -9,6 +13,7 @@ turtle.setundobuffer(1)
 turtle.tracer(1)
 turtle.register_shape("tank1.gif")
 turtle.register_shape("tank2.gif")
+
 
 class Game():	
 	def draw_border(self):
