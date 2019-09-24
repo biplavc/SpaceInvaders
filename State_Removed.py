@@ -49,7 +49,7 @@ class Player(turtle.Turtle):
 	def __init__(self, spriteshape, color, startx, starty):
 		turtle.Turtle.__init__(self, shape = spriteshape)
 		self.hideturtle()
-		self.speed(3)
+		self.speed(0)
 		self.penup()
 		self.color(color)
 		self.fd(0)
@@ -72,7 +72,7 @@ class Enemy1(turtle.Turtle):
 	def __init__(self, spriteshape, color, startx, starty):
 		turtle.Turtle.__init__(self, shape = "tank1.gif")
 		self.hideturtle
-		self.speed(3)
+		self.speed(0)
 		self.penup()
 		self.color(color)
 		self.fd(0)
@@ -84,7 +84,7 @@ class Enemy1(turtle.Turtle):
 	def enemy1_fire(self):
 		x = self.xcor()
 		y = self.ycor()
-		self.bullet1.speed(3)
+		self.bullet1.speed(6)
 		self.bullet1.setposition(x,y) # bullet will appear just above the player
 		self.bullet1.setheading(270)
 		self.bullet1.showturtle()
@@ -105,7 +105,7 @@ class Enemy2(turtle.Turtle):
 	def __init__(self, spriteshape, color, startx, starty):
 		turtle.Turtle.__init__(self, shape = "tank2.gif")
 		self.hideturtle
-		self.speed(3)
+		self.speed(0)
 		self.penup()
 		self.color(color)
 		self.fd(0)
@@ -119,7 +119,7 @@ class Enemy2(turtle.Turtle):
 		self.bullet2.setposition(x,y) # bullet will appear just above the player
 		self.bullet2.setheading(270)
 		self.bullet2.showturtle()
-		self.bullet2.speed(3)
+		self.bullet2.speed(6)
 		y1 = y - 900
 		self.bullet2.sety(y1)
 
@@ -138,7 +138,7 @@ class Enemy3(turtle.Turtle):
 	def __init__(self, spriteshape, color, startx, starty):
 		turtle.Turtle.__init__(self, shape = "tank3.gif")
 		self.hideturtle
-		self.speed(3)
+		self.speed(0)
 		self.penup()
 		self.color(color)
 		self.fd(0)
@@ -153,7 +153,7 @@ class Enemy3(turtle.Turtle):
 		self.bullet3.setposition(x,y) # bullet will appear just above the player
 		self.bullet3.setheading(270)
 		self.bullet3.showturtle()
-		self.bullet3.speed(3)
+		self.bullet3.speed(0)
 		y1 = y - 900
 		self.bullet3.sety(y1)
 
