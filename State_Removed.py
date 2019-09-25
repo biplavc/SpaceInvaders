@@ -10,7 +10,8 @@ turtle.speed(0)
 turtle.bgcolor("black")
 turtle.ht()
 turtle.setundobuffer(None)
-turtle.tracer(5,0)
+turtle.delay(0)
+turtle.tracer(20,0)
 turtle.register_shape("tank1.gif")
 turtle.register_shape("tank2.gif")
 turtle.register_shape("tank3.gif")
@@ -103,6 +104,72 @@ for i in range(num_Enemy1):
 
 # Enemy1 class defined
 
+# Define Enemy2 class
+
+class Enemy2(turtle.Turtle):
+
+	a=[]
+
+	def __init__(self, spriteshape, color, startx, starty):
+		turtle.Turtle.__init__(self, shape = "tank2.gif")
+		self.hideturtle
+		self.speed(0)
+		self.penup()
+		self.color(color)
+		self.fd(0)
+		self.setposition(startx, starty)
+	
+
+	def enemy2_fire(self):
+		x = self.xcor()
+		y = self.ycor()
+		bullet2 = Bullet()
+		bullet2.setposition(x,y) # bullet will appear just above the player
+		bullet2.setheading(270)
+		bullet2.showturtle()
+		self.a.append(bullet2)
+
+num_Enemy2 = 1
+enemies2 = []
+for i in range(num_Enemy2):
+	b = Enemy2("circle", "red", random.randint(-180,180), random.randint(-100,250))
+	enemies2.append(b)
+
+# Enemy2 class defined
+
+# Define Enemy3 class
+
+class Enemy3(turtle.Turtle):
+
+	a=[]
+
+	def __init__(self, spriteshape, color, startx, starty):
+		turtle.Turtle.__init__(self, shape = "tank3.gif")
+		self.hideturtle
+		self.speed(0)
+		self.penup()
+		self.color(color)
+		self.fd(0)
+		self.setposition(startx, starty)
+	
+
+	def enemy3_fire(self):
+		x = self.xcor()
+		y = self.ycor()
+		bullet3 = Bullet()
+		bullet3.setposition(x,y) # bullet will appear just above the player
+		bullet3.setheading(270)
+		bullet3.showturtle()
+		self.a.append(bullet3)
+
+num_Enemy3 = 1
+enemies3 = []
+for i in range(num_Enemy3):
+	b = Enemy1("circle", "red", random.randint(-180,180), random.randint(-100,250))
+	enemies1.append(b)
+
+# Enemy1 class defined
+
 
 player = Player("triangle", "white", 0, -390)
 
@@ -114,8 +181,13 @@ turtle.onkey(player.accelerate,"Up")
 #turtle.onkey(player.brake,"Down")
 
 freq1 = 8
+freq2 = 12
+freq3 = 16
 
 while True:
+
+	# enemy 1 loop
+
 	for enemy1 in enemies1:
 		enemy1.rt(10)
 		enemy1.fd(10)
@@ -131,6 +203,51 @@ while True:
 			bullets.sety(y1)
 
 		for bullets in enemy1.a:
+			if (bullets.ycor()>390 or bullets.xcor()>390 or bullets.ycor()<-390 or bullets.xcor()<-390):
+				bullets.hideturtle()
+				bullets.clear()
+				del bullets
+
+
+	# enemy 2 loop
+
+	for enemy2 in enemies2:
+		enemy2.rt(10)
+		enemy2.fd(10)
+		freq2 = freq2 - 1
+		if (freq2==0):
+			enemy2.enemy2_fire()
+			freq2 = 12
+
+
+		for bullets in enemy2.a:
+			y = bullets.ycor()
+			y1 = y - 10
+			bullets.sety(y1)
+
+		for bullets in enemy2.a:
+			if (bullets.ycor()>390 or bullets.xcor()>390 or bullets.ycor()<-390 or bullets.xcor()<-390):
+				bullets.hideturtle()
+				bullets.clear()
+				del bullets
+
+	# enemy 3 loop
+
+	for enemy3 in enemies3:
+		enemy3.rt(10)
+		enemy3.fd(10)
+		freq3 = freq3 - 1
+		if (freq3==0):
+			enemy3.enemy1_fire()
+			freq3 = 4
+
+
+		for bullets in enemy3.a:
+			y = bullets.ycor()
+			y1 = y - 10
+			bullets.sety(y1)
+
+		for bullets in enemy3.a:
 			if (bullets.ycor()>390 or bullets.xcor()>390 or bullets.ycor()<-390 or bullets.xcor()<-390):
 				bullets.hideturtle()
 				bullets.clear()
