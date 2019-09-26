@@ -76,6 +76,7 @@ class Player(turtle.Turtle):
 class Enemy1(turtle.Turtle):
 
 	a=[]
+	moving_speed = 1
 
 	def __init__(self, spriteshape, color, startx, starty):
 		turtle.Turtle.__init__(self, shape = "tank1.gif")
@@ -95,6 +96,21 @@ class Enemy1(turtle.Turtle):
 		bullet1.setheading(270)
 		bullet1.showturtle()
 		self.a.append(bullet1)
+
+	# Enemy1 class defined
+	def mobility_pattern(self):
+		x = enemy1.xcor()
+		x += enemy1.moving_speed
+		enemy1.setx(x)
+
+		if x < -390:
+			enemy1.moving_speed *= -1
+
+		if x > 390:
+			enemy1.moving_speed *= -1
+
+		# self.lt(10)
+		# self.fd(10)
 
 num_Enemy1 = 1
 enemies1 = []
@@ -128,6 +144,11 @@ class Enemy2(turtle.Turtle):
 		bullet2.setheading(270)
 		bullet2.showturtle()
 		self.a.append(bullet2)
+
+	def mobility_pattern(self):
+		self.lt(100)
+		self.fd(90)
+
 
 num_Enemy2 = 1
 enemies2 = []
@@ -165,11 +186,8 @@ class Enemy3(turtle.Turtle):
 num_Enemy3 = 1
 enemies3 = []
 for i in range(num_Enemy3):
-	b = Enemy1("circle", "red", random.randint(-180,180), random.randint(-100,250))
-	enemies1.append(b)
-
-# Enemy1 class defined
-
+	b = Enemy3("circle", "red", random.randint(-180,180), random.randint(-100,250))
+	enemies3.append(b)
 
 player = Player("triangle", "white", 0, -390)
 
@@ -180,78 +198,80 @@ turtle.onkey(player.turn_right,"Right")
 turtle.onkey(player.accelerate,"Up")
 #turtle.onkey(player.brake,"Down")
 
-freq1 = 8
-freq2 = 12
-freq3 = 16
+freq1 = 600
+freq2 = 300
+freq3 = 450
 
 while True:
 
 	# enemy 1 loop
 
 	for enemy1 in enemies1:
-		enemy1.rt(10)
-		enemy1.fd(10)
+
+		enemy1.mobility_pattern()
 		freq1 = freq1 - 1
-		if (freq1==0):
+
+		if  freq1 == 0:
 			enemy1.enemy1_fire()
-			freq1 = 8
+			print("Freq", freq1)
+			freq1 = 600
 
+		for bullet in enemy1.a:
+			print("Bullet list length", len(enemy1.a))
+			y = bullet.ycor()
+			y1 = y - 1
+			bullet.sety(y1)
 
-		for bullets in enemy1.a:
-			y = bullets.ycor()
-			y1 = y - 10
-			bullets.sety(y1)
-
-		for bullets in enemy1.a:
-			if (bullets.ycor()>390 or bullets.xcor()>390 or bullets.ycor()<-390 or bullets.xcor()<-390):
-				bullets.hideturtle()
-				bullets.clear()
-				del bullets
+		for bullet in enemy1.a:
+			#Goes out of screen - delete the bullet
+			if (bullet.ycor()>390 or bullet.xcor()>390 or bullet.ycor()<-390 or bullet.xcor()<-390):
+				bullet.hideturtle()
+				bullet.clear()
+				enemy1.a.remove(bullet)
 
 
 	# enemy 2 loop
 
 	for enemy2 in enemies2:
-		enemy2.rt(10)
-		enemy2.fd(10)
+		enemy2.mobility_pattern()
 		freq2 = freq2 - 1
 		if (freq2==0):
 			enemy2.enemy2_fire()
-			freq2 = 12
+			freq2 = 300
 
-
-		for bullets in enemy2.a:
-			y = bullets.ycor()
+		for bullet in enemy2.a:
+			y = bullet.ycor()
 			y1 = y - 10
-			bullets.sety(y1)
+			bullet.sety(y1)
 
-		for bullets in enemy2.a:
-			if (bullets.ycor()>390 or bullets.xcor()>390 or bullets.ycor()<-390 or bullets.xcor()<-390):
-				bullets.hideturtle()
-				bullets.clear()
-				del bullets
+		for bullet in enemy2.a:
+			if (bullet.ycor()>390 or bullet.xcor()>390 or bullet.ycor()<-390 or bullet.xcor()<-390):
+				bullet.hideturtle()
+				bullet.clear()
+				enemy2.a.remove(bullet)
 
-	# enemy 3 loop
-
+	# # enemy 3 loop
+    #
 	for enemy3 in enemies3:
-		enemy3.rt(10)
-		enemy3.fd(10)
+		enemy3.fd(50)
+		enemy3.rt(30)
+
 		freq3 = freq3 - 1
 		if (freq3==0):
-			enemy3.enemy1_fire()
-			freq3 = 4
+			enemy3.enemy3_fire()
+			freq3 = 450
 
 
-		for bullets in enemy3.a:
-			y = bullets.ycor()
+		for bullet in enemy3.a:
+			y = bullet.ycor()
 			y1 = y - 10
-			bullets.sety(y1)
+			bullet.sety(y1)
 
-		for bullets in enemy3.a:
-			if (bullets.ycor()>390 or bullets.xcor()>390 or bullets.ycor()<-390 or bullets.xcor()<-390):
-				bullets.hideturtle()
-				bullets.clear()
-				del bullets
+		for bullet in enemy3.a:
+			if (bullet.ycor()>390 or bullet.xcor()>390 or bullet.ycor()<-390 or bullet.xcor()<-390):
+				bullet.hideturtle()
+				bullet.clear()
+				enemy3.a.remove(bullet)
 
 
 delay = raw_input("Press enter to finish. > ")
