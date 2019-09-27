@@ -3,11 +3,16 @@ import os
 import random
 import turtle
 
+freq1 = 50
+freq2 = 100
+freq3 = 150
+
+
 #latest
 wn = turtle.Screen()
 wn.bgpic("space_invaders_background_new.gif")
 turtle.fd(0)
-turtle.speed(10)
+turtle.speed(0)
 turtle.bgcolor("black")
 turtle.ht()
 turtle.setundobuffer(None)
@@ -69,7 +74,7 @@ class Player(turtle.Turtle):
 	def accelerate(self):
 		self.move()
 
-# Define Enemy1 class
+# Define Enemy1 class, will move in a circle
 
 class Enemy1(turtle.Turtle):
 
@@ -82,7 +87,29 @@ class Enemy1(turtle.Turtle):
 		self.fd(0)
 		self.setposition(startx, starty)
 		self.bullet_list = []
-	
+		self.frequency1 = 67 # frequency of shooting
+
+
+	def move1(self):
+		self.rt(5)
+		self.fd(10)
+		self.frequency1 = self.frequency1 - 1
+		if (self.frequency1==0):
+			self.enemy1_fire()
+			self.frequency1 = 67
+
+		for bullet in self.bullet_list:
+			y = bullet.ycor()
+			y1 = y - 30
+			bullet.sety(y1)
+
+		for bullet in self.bullet_list:
+			if (bullet.ycor()>390 or bullet.xcor()>390 or bullet.ycor()<-390 or bullet.xcor()<-390):
+				bullet.hideturtle()
+				bullet.clear()
+				self.bullet_list.remove(bullet)
+				# print(len(enemy1.bullet_list))
+
 
 	def enemy1_fire(self):
 		x = self.xcor()
@@ -99,10 +126,9 @@ for i in range(num_Enemy1):
 	b = Enemy1("circle", "red", random.randint(-180,180), random.randint(-100,200))
 	enemies1.append(b)
 
-# Enemy1 class defined
+# Enemy1 class defined 
 
-
-
+# define Enemy2 class, will move in a square
 class Enemy2(turtle.Turtle):
 
 	def __init__(self, spriteshape, color, startx, starty):
@@ -112,12 +138,63 @@ class Enemy2(turtle.Turtle):
 		self.penup()
 		self.color(color)
 		self.fd(0)
+		self.setheading(0)
 		self.setposition(startx, starty)
 		self.bullet_list = []
+		self.frequency2 = 73 # frequency of shooting
+		self.square_size = 200
+		self.startx = startx
+		self.starty = starty
+		self.speed2 = 10 # pixels to move per time slot
+		print("Starting positions are:", startx, ", ", starty)
+
+
+	def move2(self):
+		print (self.heading())
+		if self.heading() == 0: # when moving right, condition for left turn is exceeding the square dimension
+			print {"left 1"}
+			if (abs(self.xcor()-self.startx))>self.square_size:
+				self.lt(90)
+
+		if self.heading() == 90: # when going up, condition for left turn is exceeding the square dimension
+			print {"left 2"}
+			if (abs(self.ycor()-self.starty))>self.square_size:
+				self.lt(90)
+		
+		if self.heading() == 180: # when going left, condition for left turn is the x-coordinates of the starting point and it's current position being same
+			print {"left 3"}
+			if int(abs(self.xcor()-self.startx))==0:
+				self.lt(90)
+		
+		if self.heading() == 270: # when going down, condition for left turn is the y-coordinates of the starting point and it's current position being same
+			print {"left 4"}
+			if int(abs(self.ycor()-self.starty))==0:
+				self.lt(90)
+
+		self.fd(self.speed2)
+
+		self.frequency2 = self.frequency2 - 1
+		if (self.frequency2==0):
+			self.enemy2_fire()
+			self.frequency2 = 73
+
+
+		for bullet in self.bullet_list:
+			y = bullet.ycor()
+			y1 = y - 30
+			bullet.sety(y1)
+
+		for bullet in self.bullet_list:
+			if (bullet.ycor()>390 or bullet.xcor()>390 or bullet.ycor()<-390 or bullet.xcor()<-390):
+				bullet.hideturtle()
+				bullet.clear()
+				self.bullet_list.remove(bullet)
+				# print(len(enemy2.bullet_list))
 
 	def enemy2_fire(self):
 		x = self.xcor()
 		y = self.ycor()
+		print("vehicle 2's location are:",x, ", ",y)
 		bullet2 = Bullet()
 		bullet2.setposition(x,y) # bullet will appear just above the player
 		bullet2.setheading(270)
@@ -127,7 +204,7 @@ class Enemy2(turtle.Turtle):
 num_Enemy2 = 1
 enemies2 = []
 for i in range(num_Enemy2):
-	b = Enemy2("circle", "red", random.randint(-180,180), random.randint(-100,200))
+	b = Enemy2("circle", "red", random.randint(-180,180), random.randint(-100,100))
 	enemies2.append(b)
 
 # Enemy3 class defined
@@ -143,6 +220,8 @@ class Enemy3(turtle.Turtle):
 		self.fd(0)
 		self.setposition(startx, starty)
 		self.bullet_list = []
+		self.frequecy3 = 127
+		self.enemyspeed3 = 10
 	
 
 	def enemy3_fire(self):
@@ -153,6 +232,30 @@ class Enemy3(turtle.Turtle):
 		bullet3.setheading(270)
 		bullet3.showturtle()
 		self.bullet_list.append(bullet3)
+
+	def move3(self):
+		self.frequecy3 = self.frequecy3 - 1
+		if (self.frequecy3==0):
+			self.enemy3_fire()
+			self.frequecy3 = 127
+		x = self.xcor()
+		x = x + self.enemyspeed3
+		self.setx(x)
+		if self.xcor() > 380 or self.xcor() < -380:
+			self.enemyspeed3  = self.enemyspeed3 * (-1) # change speed direction to left when at right boundary
+
+		for bullet in self.bullet_list:
+			y = bullet.ycor()
+			y1 = y - 30
+			bullet.sety(y1)
+
+		for bullet in self.bullet_list:
+			if (bullet.ycor()>390 or bullet.xcor()>390 or bullet.ycor()<-390 or bullet.xcor()<-390):
+				bullet.hideturtle()
+				bullet.clear()
+				self.bullet_list.remove(bullet)
+				# print(len(enemy3.bullet_list))
+
 
 num_Enemy3 = 1
 enemies3 = []
@@ -171,81 +274,21 @@ turtle.onkey(player.turn_right,"Right")
 turtle.onkey(player.accelerate,"Up")
 #turtle.onkey(player.brake,"Down")
 
-freq1 = 100
-freq2 = 120
-freq3 = 160
-
 while True:
 
 	# enemy 1 loop
 
 	for enemy1 in enemies1:
-		enemy1.rt(5)
-		enemy1.fd(10)
-		freq1 = freq1 - 1
-		if (freq1==0):
-			enemy1.enemy1_fire()
-			freq1 = 100
-
-
-		for bullet in enemy1.bullet_list:
-			y = bullet.ycor()
-			y1 = y - 5
-			bullet.sety(y1)
-
-		for bullet in enemy1.bullet_list:
-			if (bullet.ycor()>390 or bullet.xcor()>390 or bullet.ycor()<-390 or bullet.xcor()<-390):
-				bullet.hideturtle()
-				bullet.clear()
-				enemy1.bullet_list.remove(bullet)
-				# print(len(enemy1.bullet_list))
-
+		enemy1.move1()
+		
 	# enemy 2 loop
 
 	for enemy2 in enemies2:
-		enemy2.lt(5)
-		enemy2.fd(10)
-		freq2 = freq2 - 1
-		if (freq2==0):
-			enemy2.enemy2_fire()
-			freq1 = 100
-
-
-		for bullet in enemy2.bullet_list:
-			y = bullet.ycor()
-			y1 = y - 5
-			bullet.sety(y1)
-
-		for bullet in enemy2.bullet_list:
-			if (bullet.ycor()>390 or bullet.xcor()>390 or bullet.ycor()<-390 or bullet.xcor()<-390):
-				bullet.hideturtle()
-				bullet.clear()
-				enemy2.bullet_list.remove(bullet)
-				# print(len(enemy2.bullet_list))
-
-
+		enemy2.move2()
 
 	# enemy 3 loop
 
 	for enemy3 in enemies3:
-		enemy3.rt(50)
-		enemy3.fd(10)
-		freq3 = freq3 - 1
-		if (freq3==0):
-			enemy3.enemy3_fire()
-			freq1 = 100
-
-
-		for bullet in enemy3.bullet_list:
-			y = bullet.ycor()
-			y1 = y - 10
-			bullet.sety(y1)
-
-		for bullet in enemy3.bullet_list:
-			if (bullet.ycor()>390 or bullet.xcor()>390 or bullet.ycor()<-390 or bullet.xcor()<-390):
-				bullet.hideturtle()
-				bullet.clear()
-				enemy3.bullet_list.remove(bullet)
-				# print(len(enemy3.bullet_list))
+		enemy3.move3()
 
 delay = raw_input("Press enter to finish. > ")
