@@ -146,28 +146,28 @@ class Enemy2(turtle.Turtle):
 		self.startx = startx
 		self.starty = starty
 		self.speed2 = 10 # pixels to move per time slot
-		print("Starting positions are:", startx, ", ", starty)
+		#print("Starting positions are:", startx, ", ", starty)
 
 
 	def move2(self):
 		print (self.heading())
 		if self.heading() == 0: # when moving right, condition for left turn is exceeding the square dimension
-			print {"left 1"}
+			#print {"left 1"}
 			if (abs(self.xcor()-self.startx))>self.square_size:
 				self.lt(90)
 
 		if self.heading() == 90: # when going up, condition for left turn is exceeding the square dimension
-			print {"left 2"}
+			#print {"left 2"}
 			if (abs(self.ycor()-self.starty))>self.square_size:
 				self.lt(90)
 		
 		if self.heading() == 180: # when going left, condition for left turn is the x-coordinates of the starting point and it's current position being same
-			print {"left 3"}
+			#print {"left 3"}
 			if int(abs(self.xcor()-self.startx))==0:
 				self.lt(90)
 		
 		if self.heading() == 270: # when going down, condition for left turn is the y-coordinates of the starting point and it's current position being same
-			print {"left 4"}
+			#print {"left 4"}
 			if int(abs(self.ycor()-self.starty))==0:
 				self.lt(90)
 
@@ -194,7 +194,7 @@ class Enemy2(turtle.Turtle):
 	def enemy2_fire(self):
 		x = self.xcor()
 		y = self.ycor()
-		print("vehicle 2's location are:",x, ", ",y)
+		#print("vehicle 2's location are:",x, ", ",y)
 		bullet2 = Bullet()
 		bullet2.setposition(x,y) # bullet will appear just above the player
 		bullet2.setheading(270)
