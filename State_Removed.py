@@ -3,10 +3,6 @@ import os
 import random
 import turtle
 
-freq1 = 50
-freq2 = 100
-freq3 = 150
-
 
 #latest
 wn = turtle.Screen()
@@ -150,7 +146,7 @@ class Enemy2(turtle.Turtle):
 
 
 	def move2(self):
-		print (self.heading())
+		#print (self.heading())
 		if self.heading() == 0: # when moving right, condition for left turn is exceeding the square dimension
 			#print {"left 1"}
 			if (abs(self.xcor()-self.startx))>self.square_size:
